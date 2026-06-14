@@ -411,6 +411,8 @@ export default function HealthRPG() {
         ::-webkit-scrollbar{width:8px}::-webkit-scrollbar-thumb{background:${C.line}}
       `}</style>
 
+      {/* ▼ 凍結區：角色經驗值 + 分頁 + 日期，固定在頂端 */}
+      <div style={{ position:"sticky", top:0, zIndex:50, background:C.bg, boxShadow:"0 3px 8px rgba(0,0,0,.12)" }}>
       {/* 角色頂列 */}
       <div style={{ padding:"14px 16px", background:C.panelAlt, borderBottom:`3px solid ${C.lineDark}` }}>
         <div style={{ display:"flex", alignItems:"center", gap:14 }}>
@@ -434,7 +436,7 @@ export default function HealthRPG() {
 
       {/* Tabs */}
       <div style={{ display:"flex", borderBottom:`3px solid ${C.lineDark}`, overflowX:"auto" }}>
-        {[["log","記錄"],["battle","戰鬥"],["elite","挑戰"],["char","角色"],["dex","圖鑑"],["shop","商城"],["stats","統計"],["edit","設定"]].map(([k,l])=>(
+        {[["log","記錄"],["stats","統計"],["battle","戰鬥"],["elite","挑戰"],["char","角色"],["dex","圖鑑"],["shop","商城"],["edit","設定"]].map(([k,l])=>(
           <button key={k} className="btn" onClick={()=>setTab(k)} style={{ flex:"1 0 auto", minWidth:64, padding:"12px 4px", border:"none", cursor:"pointer", fontFamily:F, fontSize:13, fontWeight:700, background: tab===k?C.panel:C.bgAlt, color: tab===k?C.gold:C.dim, borderRight:`2px solid ${C.bg}` }}>{l}</button>
         ))}
       </div>
@@ -446,6 +448,8 @@ export default function HealthRPG() {
           <button className="btn" onClick={()=>shiftDate(1)} disabled={isToday} style={{...dateBtn,opacity:isToday?0.3:1}}>▶</button>
         </div>
       )}
+      </div>
+      {/* ▲ 凍結區結束 */}
 
       {loading ? <div style={{ padding:40, textAlign:"center", color:C.dim }}>載入中…</div> : (
         <div style={{ padding:"16px" }}>
@@ -1550,10 +1554,62 @@ function Hero({ stage, color, weapon, armor, big, small, frame = 0, facing = 1, 
 }
 
 // ════ Boss（8 系列，16×16，含明暗描邊）════
+// ════ 32×32 精英龍（側身展翼坐姿，對齊設計圖）════
+function dragonRows32(dtype){
+  const N=32;
+  const g=Array.from({length:N},()=>Array(N).fill(" "));
+  const set=(y,x,c)=>{ if(y>=0&&y<N&&x>=0&&x<N) g[y][x]=c; };
+  const rect=(y0,y1,x0,x1,c)=>{ for(let y=y0;y<=y1;y++)for(let x=x0;x<=x1;x++)set(y,x,c); };
+  const wing=[
+    [3,20],[3,21],[3,22],
+    [4,18],[4,19],[4,20],[4,21],[4,22],[4,23],
+    [5,16],[5,17],[5,18],[5,19],[5,20],[5,21],[5,22],[5,23],[5,24],
+    [6,15],[6,16],[6,17],[6,18],[6,19],[6,20],[6,21],[6,22],[6,23],[6,24],[6,25],
+    [7,16],[7,17],[7,18],[7,19],[7,20],[7,21],[7,22],[7,23],[7,24],[7,25],
+    [8,17],[8,18],[8,19],[8,20],[8,21],[8,22],[8,23],[8,24],
+    [9,18],[9,19],[9,20],[9,21],[9,22],[9,23],
+    [10,19],[10,20],[10,21],[10,22],
+  ];
+  wing.forEach(([y,x])=>set(y,x,"m"));
+  [[2,22],[3,23],[4,24],[5,25],[6,26],[3,19],[4,17],[5,15],[6,14]].forEach(([y,x])=>set(y,x,"O"));
+  [[4,22],[5,20],[6,18],[7,21],[8,22]].forEach(([y,x])=>set(y,x,"n"));
+  rect(13,20,12,22,"C"); rect(14,19,13,21,"H"); rect(13,20,21,22,"S");
+  for(let y=14;y<=19;y++){ set(y,12,"H"); set(y,13,"D"); }
+  set(15,14,"D"); set(17,14,"D"); set(19,14,"D");
+  rect(9,13,8,12,"C"); set(9,8,"H"); set(10,8,"H");
+  rect(6,10,3,9,"C"); rect(6,8,3,6,"H");
+  rect(9,11,2,6,"C"); set(10,2,"S"); set(11,3,"S");
+  set(7,6,"E"); set(7,7,"W");
+  set(4,7,"O"); set(3,8,"O"); set(2,9,"D"); set(4,9,"O"); set(3,10,"D"); set(5,6,"D");
+  set(11,4,"W"); set(11,5,"W"); set(12,5,"W"); rect(11,12,4,8,"S");
+  rect(18,23,13,15,"C"); set(23,12,"W"); set(23,13,"W"); set(23,14,"W"); set(22,13,"S");
+  rect(17,23,18,21,"C"); rect(18,22,19,21,"S"); set(23,19,"W"); set(23,20,"W"); set(23,21,"W");
+  [[18,23],[19,24],[20,25],[21,25],[22,24],[22,23],[21,22],[20,23]].forEach(([y,x])=>set(y,x,"C"));
+  set(22,24,"S"); set(20,25,"H"); set(23,24,"D"); set(23,23,"D");
+  [[12,14],[11,16],[11,18],[12,20]].forEach(([y,x])=>set(y,x,"D"));
+  if(dtype==="fire"){ set(11,1,"R"); set(12,0,"G"); set(12,1,"R"); set(10,0,"G"); set(11,2,"G"); set(13,15,"R"); set(15,17,"R"); }
+  else if(dtype==="ice"){ set(2,8,"W"); set(3,7,"W"); set(13,16,"W"); set(16,18,"W"); set(11,1,"W"); set(12,1,"b"); }
+  else if(dtype==="venom"){ set(11,1,"G"); set(12,1,"G"); set(10,16,"D"); set(10,18,"D"); set(10,20,"D"); set(14,16,"G"); set(16,18,"G"); }
+  else if(dtype==="dark"){ set(7,6,"R"); set(13,15,"E"); set(15,17,"E"); set(17,19,"E"); }
+  else { set(13,15,"G"); set(15,17,"G"); set(17,15,"G"); }
+  set(5,2,"O"); set(13,11,"O"); set(20,12,"O"); set(20,22,"O");
+  return g.map(a=>a.join(""));
+}
+const DRAGON_DTYPE = { dragon:"base", dragon_fire:"fire", dragon_ice:"ice", dragon_venom:"venom", dragon_dark:"dark" };
+
 function BossSprite({ shape, color, mini, silhouette = false, variant = 0 }) {
   const sz = mini ? 24 : 68;
   const hi = lighten(color, 42), sh = darken(color, 40), out = darken(color, 80);
-  const P = { O: out, C: color, H: hi, S: sh, W: "#ffffff", E: "#1a1320", G: "#f4d24a", g: "#fff2c0", D: "#cfc6b0", e: "#1a1320", R: "#d1413a", K: "#f0b88a", b: "#aedbf0" };
+  const P = { O: out, C: color, H: hi, S: sh, W: "#ffffff", E: "#1a1320", G: "#f4d24a", g: "#fff2c0", D: "#cfc6b0", e: "#1a1320", R: "#d1413a", K: "#f0b88a", b: "#aedbf0", m: lighten(color,55), n: darken(color,20) };
+
+  // ── 龍：用 32×32 精細繪製 ──
+  if(DRAGON_DTYPE[shape] && shape!=="dead"){
+    const rows = dragonRows32(DRAGON_DTYPE[shape]);
+    const silPal = new Proxy({}, { get: () => "#2a2535" });
+    const els = pixGrid(rows, silhouette ? silPal : P, sz, 32, 32);
+    return <svg viewBox={`0 0 ${sz} ${sz}`} width={sz} height={sz} shapeRendering="crispEdges" style={{ overflow:"visible" }}>{els}</svg>;
+  }
+
 
   // 調色盤：C本色 H亮 S暗 O描邊 W白(牙/角) E獠眼 G金 g淺金 D骨 R紅 K膚
   const fams = {
