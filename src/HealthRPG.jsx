@@ -64,32 +64,32 @@ function xpForLevel(lv){ return 80 + (lv-1)*35; }
 
 // ── 52 Boss ──
 const SERIES = {
-  fatigue:{label:"疲勞系",color:"#8e6db0",shape:"ghost",tip:"自律神經疲勞的化身。超慢跑與充足睡眠是牠的剋星。"},
-  sit:{label:"久坐系",color:"#b08850",shape:"block",tip:"久坐不動所凝聚的怪物。每 50 分鐘起身活動可削弱牠。"},
-  inflam:{label:"發炎系",color:"#d1714e",shape:"flame",tip:"慢性發炎的火焰。魚油、好油脂與低糖飲食能澆熄牠。"},
-  insomnia:{label:"失眠系",color:"#5a82c2",shape:"swirl",tip:"擾亂睡眠的妖物。睡前腹式呼吸與遠離藍光是良方。"},
-  stress:{label:"壓力系",color:"#c25070",shape:"horn",tip:"高壓生活孕育的尖角魔。呼吸與瑜伽能讓副交感神經接管。"},
-  metabolic:{label:"代謝系",color:"#6aa05a",shape:"blob",tip:"代謝失衡的黏稠體。規律運動與原型飲食使牠縮小。"},
-  mind:{label:"心魔系",color:"#7a7a9c",shape:"eye",tip:"來自內心的阻力。不求爆衝、每天不中斷就能戰勝牠。"},
-  boss:{label:"魔王級",color:"#b03d5e",shape:"dragon",tip:"集所有威脅於一身的終極魔王，唯有長期穩定方能擊潰。"},
+  insomnia:{label:"永夜軍團",sub:"睡眠",color:"#6a5ec2",shape:"swirl",tip:"擾亂睡眠的永夜之軍。睡前腹式呼吸與遠離藍光是良方。"},
+  diet:{label:"腐食軍團",sub:"飲食",color:"#c2803a",shape:"blob",tip:"不良飲食腐化的軍團。原型飲食與少糖能淨化牠們。"},
+  sit:{label:"石化軍團",sub:"久坐",color:"#7a9a6a",shape:"block",tip:"久坐石化的怪物。每 50 分鐘起身活動可削弱牠。"},
+  stress:{label:"焦慮軍團",sub:"壓力",color:"#9560c4",shape:"horn",tip:"高壓焦慮孕育的尖角魔。呼吸與瑜伽能讓副交感神經接管。"},
+  fatigue:{label:"疲勞軍團",sub:"能量",color:"#c2a83a",shape:"ghost",tip:"自律神經疲勞的化身。超慢跑與充足睡眠是牠的剋星。"},
+  inflam:{label:"發炎軍團",sub:"炎症",color:"#d1574e",shape:"flame",tip:"慢性發炎的火焰之軍。魚油、好油脂與低糖飲食能澆熄牠。"},
+  mind:{label:"心魔軍團",sub:"情緒",color:"#3a8a8a",shape:"eye",tip:"來自內心的阻力。不求爆衝、每天不中斷就能戰勝牠。"},
+  boss:{label:"四大天災",sub:"終焉",color:"#b03d5e",shape:"dragon",tip:"集所有威脅於一身的終極天災，唯有長期穩定方能擊潰。"},
 };
 const BOSS_NAMES = [
-  // 1-6 疲勞系
-  ["fatigue","催牙鼠"],["fatigue","髫骨犛牛"],["fatigue","暮魅裂虎"],["fatigue","睏魔兔"],["fatigue","枯焰龍"],["fatigue","衰毒蛇"],
-  // 7-13 久坐系
-  ["sit","石臀戰馬"],["sit","鮇骨羊魔"],["sit","鮟尾強獸"],["sit","駝頭蹄妖"],["sit","坐牢犬"],["sit","脂眠豬"],["sit","瀝血鼠王"],
-  // 14-19 發炎系
-  ["inflam","赤炎犛牛"],["inflam","潰爪虎魔"],["inflam","熱瘤兔"],["inflam","廧蠊炎龍"],["inflam","毒脈虺后"],["inflam","灼心戰馬"],
-  // 20-26 失眠系
-  ["insomnia","夜哭羊"],["insomnia","夢囈獴"],["insomnia","暗鳴龍妖"],["insomnia","失序犬"],["insomnia","沉夢豬王"],["insomnia","月蝕鼠皇"],["insomnia","焦躁馬王"],
-  // 27-33 壓力系
-  ["stress","狂躁裂虎"],["stress","緊繃兔魔"],["stress","崩壓龍獸"],["stress","絞腦毒蛇"],["stress","焦蹄馬王"],["stress","壓垮羊魔"],["stress","暴怒猿王"],
-  // 34-40 代謝系
-  ["metabolic","糖羽雞魔"],["metabolic","油腹犬王"],["metabolic","暴食豬皇"],["metabolic","脂霜鼠魔"],["metabolic","肥炎犛牛"],["metabolic","血癰裂虎"],["metabolic","糖毒蛇妖"],
-  // 41-46 心魔系
-  ["mind","虛無龍影"],["mind","自噬蛇魔"],["mind","塵憶魔馬"],["mind","絕望羊皇"],["mind","幻笑猿王"],["mind","空鳴雞噩"],
-  // 47-52 魔王級
-  ["boss","炎厄魔犬"],["boss","深淵豬帝"],["boss","永夜鼠神"],["boss","崩界魔牛"],["boss","滅心冥虎"],["boss","終焉魔龍"],
+  // 1-7 永夜軍團（睡眠）
+  ["insomnia","夜羽烏鴉"],["insomnia","失時狼"],["insomnia","夢噬獸"],["insomnia","月蝕獅"],["insomnia","催眠燭台"],["insomnia","睡影幽靈"],["insomnia","黑伽貓魅魘"],
+  // 8-14 腐食軍團（飲食）
+  ["diet","糖晶史萊姆"],["diet","奶油暴熊"],["diet","熔糖巨蜥"],["diet","油脂蟲王"],["diet","鹽漬螃蟹"],["diet","腐肉大嘴花"],["diet","深淵吞獸"],
+  // 15-21 石化軍團（久坐）
+  ["sit","石足獵犬"],["sit","鐵椅魔"],["sit","凝骨犀牛"],["sit","沉眠巨猿"],["sit","鉛灰巨人"],["sit","卡頓甲蟲"],["sit","山脈巨龍"],
+  // 22-28 焦慮軍團（壓力）
+  ["stress","裂腦獸"],["stress","低語妖"],["stress","千念蜘蛛"],["stress","恐慌魔鹿"],["stress","扭曲小丑"],["stress","緊頓戰士"],["stress","深淵夢魘龍"],
+  // 29-35 疲勞軍團（能量）
+  ["fatigue","枯火狼"],["fatigue","空能獅"],["fatigue","衰變巨熊"],["fatigue","灰燼戰馬"],["fatigue","電量幽靈"],["fatigue","能量掠奪者"],["fatigue","熄火古龍"],
+  // 36-42 發炎軍團（炎症）
+  ["inflam","赤瘟犬"],["inflam","腐血豹"],["inflam","熔核巨牛"],["inflam","灼心鳳凰"],["inflam","毒瘤巫師"],["inflam","感染觸手"],["inflam","瘟疫飛鴉"],
+  // 43-49 心魔軍團（情緒）
+  ["mind","空殼人偶"],["mind","鏡界惡魔"],["mind","自噬蛇"],["mind","虛無黑羊"],["mind","罪惡之眼"],["mind","悲鳴騎士"],["mind","絕望獅王"],
+  // 50-52 四大天災
+  ["boss","暴食天災"],["boss","虛無天災"],["boss","終焉之龍·諾克斯"],
 ];
 // 色相旋轉：讓同系列每隻 Boss 有不同色調
 function hueShift(hex, deg){
@@ -227,12 +227,17 @@ function todayKey(d=new Date()){ return d.toLocaleDateString("sv-SE"); }
 function weekKeyOf(d=new Date()){ const t=new Date(d); t.setHours(0,0,0,0); t.setDate(t.getDate()-((t.getDay()+6)%7)); return todayKey(t); }
 function monthKeyOf(d=new Date()){ return todayKey(d).slice(0,7); }
 function fmtDate(key){ const [y,m,dd]=key.split("-"); const dt=new Date(+y,+m-1,+dd); const wd=["日","一","二","三","四","五","六"][dt.getDay()]; return `${+m}/${+dd} 週${wd}`; }
-function emptyDay(){ return { exercises:{}, supplements:{}, extras:[], sleep:null, note:"" }; }
+function emptyDay(){ return { exercises:{}, supplements:{}, extras:[], sleep:null, note:"", water:0, bedtime:null }; }
+// 上床時間是否達標：把晚上(18:00-23:59)視為當天、凌晨(00:00-05:59)視為跨午夜較晚
+// 回傳 true=有在目標時間前上床
+function bedMinutes(t){ if(!t) return null; const [h,m]=t.split(":").map(Number); // 18:00→1080, 23:30→1410, 00:00→1440, 01:30→1530
+  let mins=h*60+m; if(h<12) mins+=1440; return mins; }
+function bedtimeOk(bedtime, goal){ if(!bedtime) return false; if(bedtime==="late") return false; const b=bedMinutes(bedtime), g=bedMinutes(goal); if(b==null||g==null) return false; return b<=g; }
 
 export default function HealthRPG() {
   const [dateKey, setDateKey] = useState(todayKey());
   const [day, setDay] = useState(emptyDay());
-  const [cfg, setCfg] = useState({ exercises:DEFAULT_EX, supplements:DEFAULT_SUPP });
+  const [cfg, setCfg] = useState({ exercises:DEFAULT_EX, supplements:DEFAULT_SUPP, waterGoal:2000, bedGoal:"00:00" });
   const [pg, setPg] = useState({ totalXP:0, coins:0, owned:[], equip:{weapon:null,head:null,body:null,feet:null,acc:null}, defeated:[], bossWeek:{}, _perDay:{} });
   const [allKeys, setAllKeys] = useState([]);
   const [loading, setLoading] = useState(true);
@@ -316,8 +321,10 @@ export default function HealthRPG() {
   // 結算：累積當週傷害 + XP + 每日金幣
   useEffect(()=>{
     if(loading) return;
-    const dayXP = exDone.reduce((s,e)=>s+e.xp,0)+suppDone.reduce((s,e)=>s+e.xp,0)+extras.reduce((s,e)=>s+(e.xp||15),0)+(isFull?30:0)+(day.sleep?day.sleep*(3+Math.round(recBonus/2)):0);
-    const dayCoin = (exDone.length+suppDone.length)*3 + extras.length*5 + (isFull?20:0); // 每項3金、臨時運動5金、全達標+20
+    const waterDone = (cfg.waterGoal>0 && (day.water||0)>=cfg.waterGoal);
+    const bedDone = bedtimeOk(day.bedtime, cfg.bedGoal||"00:00");
+    const dayXP = exDone.reduce((s,e)=>s+e.xp,0)+suppDone.reduce((s,e)=>s+e.xp,0)+extras.reduce((s,e)=>s+(e.xp||15),0)+(isFull?30:0)+(waterDone?15:0)+(bedDone?15:0)+(day.sleep?day.sleep*(3+Math.round(recBonus/2)):0);
+    const dayCoin = (exDone.length+suppDone.length)*3 + extras.length*5 + (isFull?20:0) + (waterDone?10:0) + (bedDone?10:0); // 每項3金、臨時5金、全達標20、喝水達標10、早睡達標10
     const pd={...(pg._perDay||{})};
     const oldDmg=pd[`dmg:${dateKey}`]||0, oldXP=pd[`xp:${dateKey}`]||0, oldCoin=pd[`coin:${dateKey}`]||0;
     if(dayDmg!==oldDmg||dayXP!==oldXP||dayCoin!==oldCoin){
@@ -368,6 +375,8 @@ export default function HealthRPG() {
   function setMin(ex,m){ const cur=day.exercises[ex.id]||{done:true,minutes:ex.target}; saveDay({...day,exercises:{...day.exercises,[ex.id]:{...cur,minutes:m,done:true}}}); }
   function toggleSupp(s){ saveDay({...day,supplements:{...day.supplements,[s.id]:!day.supplements[s.id]}}); if(!day.supplements[s.id]) showToast({spr:"pill",text:`${s.name} +${s.xp} XP`}); }
   function setSleep(v){ saveDay({...day,sleep:day.sleep===v?null:v}); }
+  function addWater(cc){ const nw=Math.max(0,(day.water||0)+cc); saveDay({...day,water:nw}); if(cc>0) showToast({spr:"drop",text:`+${cc}cc（${nw}cc）`}); }
+  function setBedtime(t){ saveDay({...day, bedtime: day.bedtime===t ? null : t}); }
   function setNote(v){ saveDay({...day,note:v}); }
   function addExtra(ex){ // 臨時運動：當天一次性
     const item={ id:"x_"+Date.now(), name:ex.name, spr:ex.spr, minutes:ex.minutes, xp:15 };
@@ -455,7 +464,7 @@ export default function HealthRPG() {
         <div style={{ padding:"16px" }}>
           {tab==="battle" && <Battle boss={wkBoss} bossHP={bossHP} bossDead={bossDead} dayDmg={dayDmg} isFull={isFull} doneItems={doneItems} totalItems={totalItems} combo={combo} atkBonus={atkBonus} weekNum={isoWeek(new Date(dateKey+"T12:00:00"))} />}
           {tab==="elite" && <EliteTab pg={pg} level={level} energy={energy} energyMax={energyMax} streak={streak} isWeekend={isWeekend} eliteOpen={eliteOpen} atkBonus={atkBonus} defBonus={defBonus} recBonus={recBonus} onWin={onEliteWin} />}
-          {tab==="log" && <LogTab cfg={cfg} day={day} toggleEx={toggleEx} setMin={setMin} toggleSupp={toggleSupp} setSleep={setSleep} setNote={setNote} addExtra={addExtra} delExtra={delExtra} />}
+          {tab==="log" && <LogTab cfg={cfg} day={day} toggleEx={toggleEx} setMin={setMin} toggleSupp={toggleSupp} setSleep={setSleep} setNote={setNote} addExtra={addExtra} delExtra={delExtra} addWater={addWater} setBedtime={setBedtime} />}
           {tab==="char" && <CharTab level={level} sIdx={sIdx} stage={stage} pg={pg} weapon={weapon} equippedArmor={equippedArmor} equipObj={equipObj} atkBonus={atkBonus} defBonus={defBonus} recBonus={recBonus} />}
           {tab==="dex" && <DexTab sIdx={sIdx} pg={pg} />}
           {tab==="shop" && <ShopTab pg={pg} buy={buy} equip={equip} level={level} />}
@@ -676,7 +685,7 @@ function BattleScreen({ el, level, atkBonus, defBonus, recBonus, onWin, onFlee }
 }
 
 // ════ 記錄 ════
-function LogTab({ cfg, day, toggleEx, setMin, toggleSupp, setSleep, setNote, addExtra, delExtra }) {
+function LogTab({ cfg, day, toggleEx, setMin, toggleSupp, setSleep, setNote, addExtra, delExtra, addWater, setBedtime }) {
   const [showAdd, setShowAdd] = useState(false);
   const extras = day.extras||[];
   return (
@@ -723,10 +732,45 @@ function LogTab({ cfg, day, toggleEx, setMin, toggleSupp, setSleep, setNote, add
           })}
         </div>);
       })}
+      <Header>喝水</Header>
+      {(()=>{ const goal=cfg.waterGoal||2000; const cur=day.water||0; const pct=Math.min(100,Math.round(cur/goal*100)); const done=cur>=goal;
+        return (
+          <div className="pix" style={{ background:C.panel, padding:14 }}>
+            <div style={{ display:"flex", alignItems:"center", justifyContent:"space-between", marginBottom:10 }}>
+              <span style={{ fontSize:14, fontWeight:700, display:"flex", alignItems:"center", gap:6 }}><Mini kind="drop" size={18}/>{cur} / {goal} cc</span>
+              <span style={{ fontSize:13, fontWeight:700, color:done?C.green:C.blue }}>{pct}%{done?" ✓":""}</span>
+            </div>
+            <div style={{ height:14, background:C.bgAlt, border:`2px solid ${C.lineDark}`, marginBottom:12 }}>
+              <div style={{ height:"100%", width:`${pct}%`, background:done?C.green:C.blue, transition:"width .2s" }}/>
+            </div>
+            <div style={{ display:"flex", gap:8 }}>
+              {[250,500].map(cc=>(<button key={cc} className="btn" onClick={()=>addWater(cc)} style={{ flex:1, padding:12, border:`3px solid ${C.blue}`, background:C.bg, color:C.blue, cursor:"pointer", fontFamily:F, fontWeight:700, fontSize:14 }}>＋{cc}cc</button>))}
+              <button className="btn" onClick={()=>addWater(-250)} style={{ width:54, padding:12, border:`3px solid ${C.lineDark}`, background:C.bgAlt, color:C.dim, cursor:"pointer", fontFamily:F, fontWeight:700, fontSize:14 }}>－</button>
+            </div>
+            <div style={{ fontSize:10, color:C.dim, marginTop:8, textAlign:"center" }}>達標 +15XP +10金 · 每日目標可在「設定」調整</div>
+          </div>
+        );
+      })()}
+
       <Header>睡眠品質</Header>
       <div className="pix" style={{ background:C.panel, padding:14, display:"flex", justifyContent:"space-between" }}>
         {[1,2,3,4,5].map(v=>(<button key={v} className="btn" onClick={()=>setSleep(v)} style={{ width:46, height:46, cursor:"pointer", border:`3px solid ${day.sleep>=v?C.gold:C.lineDark}`, background:day.sleep>=v?C.gold:C.bg, color:day.sleep>=v?"#fff":C.dim, fontSize:18, fontFamily:F }}>★</button>))}
       </div>
+
+      <Header>上床時間</Header>
+      {(()=>{ const goal=cfg.bedGoal||"00:00"; const ok=bedtimeOk(day.bedtime,goal); const opts=[["22:00","10點"],["22:30","10點半"],["23:00","11點"],["23:30","11點半"],["00:00","12點"],["late","12點後"]];
+        return (
+          <div className="pix" style={{ background:C.panel, padding:14 }}>
+            <div style={{ fontSize:11, color:C.dim, marginBottom:10 }}>目標：{goal==="00:00"?"12點":goal} 前上床　{day.bedtime?(ok?<span style={{color:C.green,fontWeight:700}}>✓ 達標</span>:<span style={{color:C.red,fontWeight:700}}>超過目標</span>):<span style={{color:C.dim}}>尚未記錄</span>}</div>
+            <div style={{ display:"flex", flexWrap:"wrap", gap:6 }}>
+              {opts.map(([v,l])=>{ const sel=day.bedtime===v; return (
+                <button key={v} className="btn" onClick={()=>setBedtime(v)} style={{ flex:"1 0 28%", padding:"10px 4px", border:`2px solid ${sel?C.gold:C.line}`, background:sel?C.panelAlt:C.bg, color:sel?C.gold:C.ink, cursor:"pointer", fontFamily:F, fontSize:13, fontWeight:700 }}>{l}</button>
+              ); })}
+            </div>
+            <div style={{ fontSize:10, color:C.dim, marginTop:8, textAlign:"center" }}>達標 +15XP +10金 · 目標時間可在「設定」調整</div>
+          </div>
+        );
+      })()}
       <Header>冒險日誌</Header>
       <textarea value={day.note} onChange={e=>setNote(e.target.value)} placeholder="身體感受、痠痛部位、壓力狀態…" style={{ width:"100%", minHeight:70, background:C.panel, border:`3px solid ${C.lineDark}`, padding:12, fontSize:14, fontFamily:F, color:C.ink, resize:"vertical" }}/>
       {showAdd && <ExtraModal onAdd={(ex)=>{ addExtra(ex); setShowAdd(false); }} close={()=>setShowAdd(false)} />}
@@ -1015,7 +1059,7 @@ function Stats({ allKeys, cfg }) {
     const base=new Date(anchor+"T12:00:00");
     const exTot=cfg.exercises.length, spTot=cfg.supplements.length, all=exTot+spTot;
     const mk=(dy)=>{ const ex=cfg.exercises.filter(e=>dy.exercises?.[e.id]?.done).length; const sp=cfg.supplements.filter(s=>dy.supplements?.[s.id]).length;
-      return { ex, sp, done:ex+sp, exRate:exTot?ex/exTot:0, spRate:spTot?sp/spTot:0, rate:all?(ex+sp)/all:0, sleep:dy.sleep||0 }; };
+      return { ex, sp, done:ex+sp, exRate:exTot?ex/exTot:0, spRate:spTot?sp/spTot:0, rate:all?(ex+sp)/all:0, sleep:dy.sleep||0, water:dy.water||0, bedtime:dy.bedtime||null }; };
     if(mode==="day"){
       // 取錨點當天，組逐項明細
       let dy=cache[anchor]; if(!dy){ try{ const r=await storage.get(`day:${anchor}`); dy=r?JSON.parse(r.value):emptyDay(); }catch{ dy=emptyDay(); } }
@@ -1076,6 +1120,7 @@ function Stats({ allKeys, cfg }) {
               <span style={{ color:C.green }}>運動 {dayData.ex}/{cfg.exercises.length}</span>
               <span style={{ color:C.blue }}>保健 {dayData.sp}/{cfg.supplements.length}</span>
               <span style={{ color:C.coin }}>睡眠 {dayData.sleep?`${dayData.sleep}★`:"-"}</span>
+              <span style={{ color:C.blue }}>水 {dayData.water||0}cc</span>
             </div>
           </div>
           {/* 運動逐項 */}
@@ -1107,6 +1152,32 @@ function Stats({ allKeys, cfg }) {
               </div>);
             })}
           </div>
+          {/* 喝水達成 */}
+          {(()=>{ const goal=cfg.waterGoal||2000; const cur=dayData.water||0; const pct=Math.min(100,Math.round(cur/goal*100)); const done=cur>=goal;
+            return (
+              <div className="pix" style={{ background:C.panel, padding:14, marginBottom:12 }}>
+                <div style={{ display:"flex", alignItems:"center", justifyContent:"space-between", marginBottom:8 }}>
+                  <span style={{ fontSize:12, color:C.dim, display:"flex", alignItems:"center", gap:6 }}><Mini kind="drop" size={16}/>喝水</span>
+                  <span style={{ fontSize:13, fontWeight:700, color:done?C.green:C.blue }}>{cur} / {goal} cc · {pct}%{done?" ✓":""}</span>
+                </div>
+                <div style={{ height:12, background:C.bgAlt, border:`2px solid ${C.lineDark}` }}>
+                  <div style={{ height:"100%", width:`${pct}%`, background:done?C.green:C.blue }}/>
+                </div>
+              </div>
+            );
+          })()}
+          {/* 上床時間 */}
+          {(()=>{ const goal=cfg.bedGoal||"00:00"; const bt=dayData.bedtime; const ok=bedtimeOk(bt,goal);
+            const label = bt==="late"?"12點後":bt? (bt==="00:00"?"12點":bt) :null;
+            return (
+              <div className="pix" style={{ background:C.panel, padding:14, marginBottom:12 }}>
+                <div style={{ display:"flex", alignItems:"center", justifyContent:"space-between" }}>
+                  <span style={{ fontSize:12, color:C.dim }}>上床時間（目標 {goal==="00:00"?"12點":goal} 前）</span>
+                  <span style={{ fontSize:13, fontWeight:700, color:bt?(ok?C.green:C.red):C.dim }}>{label?`${label}${ok?" ✓":""}`:"未記錄"}</span>
+                </div>
+              </div>
+            );
+          })()}
           {/* 當日日誌 */}
           {dayData.note && (
             <div className="pix" style={{ background:C.panelAlt, padding:14, fontSize:13, color:C.inkSoft, lineHeight:1.7 }}>
@@ -1186,10 +1257,12 @@ function Stats({ allKeys, cfg }) {
             <span style={{ flex:1 }}>完成率</span>
             <span style={{ width:48, textAlign:"center" }}>運動</span>
             <span style={{ width:48, textAlign:"center" }}>保健</span>
+            <span style={{ width:28, textAlign:"center" }}>水</span>
+            <span style={{ width:28, textAlign:"center" }}>床</span>
             <span style={{ width:32, textAlign:"right" }}>睡</span>
           </div>
           <div style={{ maxHeight:mode==="month"?220:"auto", overflowY:mode==="month"?"auto":"visible" }}>
-          {data.map((d,i)=>{ const c=rateColor(d.rate); const has=d.done>0||d.sleep>0;
+          {data.map((d,i)=>{ const c=rateColor(d.rate); const wd=(cfg.waterGoal||2000)>0 && d.water>=(cfg.waterGoal||2000); const has=d.done>0||d.sleep>0||d.water>0||d.bedtime;
             return (
               <div key={i} style={{ display:"flex", alignItems:"center", fontSize:11, padding:"6px 4px", borderBottom:`1px solid rgba(0,0,0,.04)`, opacity:has?1:0.4 }}>
                 <span style={{ width:mode==="month"?28:40, color:C.ink, fontWeight:700 }}>{mode==="month"?(i+1):d.label}</span>
@@ -1201,6 +1274,8 @@ function Stats({ allKeys, cfg }) {
                 </span>
                 <span style={{ width:48, textAlign:"center", color:C.dim }}>{d.ex}/{cfg.exercises.length}</span>
                 <span style={{ width:48, textAlign:"center", color:C.dim }}>{d.sp}/{cfg.supplements.length}</span>
+                <span style={{ width:28, textAlign:"center", color:wd?C.blue:C.line }}>{d.water>0?(wd?"✓":"·"):"-"}</span>
+                <span style={{ width:28, textAlign:"center", color:bedtimeOk(d.bedtime,cfg.bedGoal||"00:00")?C.green:C.line }}>{d.bedtime?(bedtimeOk(d.bedtime,cfg.bedGoal||"00:00")?"✓":"·"):"-"}</span>
                 <span style={{ width:32, textAlign:"right", color:d.sleep?C.coin:C.line }}>{d.sleep?`${d.sleep}★`:"-"}</span>
               </div>
             );
@@ -1247,6 +1322,31 @@ function EditTab({ cfg, saveCfg }) {
         <button className="btn" onClick={()=>saveCfg({...cfg,supplements:cfg.supplements.filter(x=>x.id!==s.id)})} style={{...miniBtn,borderColor:C.red,color:C.red}}>刪</button>
       </div>))}
       <button className="btn" onClick={()=>setEditing({type:"supp",item:{id:"sp_"+Date.now(),name:"",slot:"morning",note:"",xp:5,spr:"pill"}})} style={addBtn}>＋ 新增保健品</button>
+
+      <Header>每日喝水目標</Header>
+      <div className="pix" style={{ background:C.panel, padding:14 }}>
+        <div style={{ display:"flex", alignItems:"center", justifyContent:"space-between", marginBottom:10 }}>
+          <span style={{ fontSize:14, fontWeight:700, display:"flex", alignItems:"center", gap:6 }}><Mini kind="drop" size={18}/>目標 {cfg.waterGoal||2000} cc</span>
+        </div>
+        <div style={{ display:"flex", gap:8, marginBottom:10 }}>
+          {[1500,2000,2500,3000].map(v=>(<button key={v} className="btn" onClick={()=>saveCfg({...cfg,waterGoal:v})} style={{ flex:1, padding:10, border:`2px solid ${(cfg.waterGoal||2000)===v?C.blue:C.line}`, background:(cfg.waterGoal||2000)===v?C.panelAlt:C.bg, color:C.ink, cursor:"pointer", fontFamily:F, fontSize:12, fontWeight:700 }}>{v}</button>))}
+        </div>
+        <div style={{ display:"flex", alignItems:"center", gap:10 }}>
+          <input type="range" min={500} max={4000} step={100} value={cfg.waterGoal||2000} onChange={e=>saveCfg({...cfg,waterGoal:+e.target.value})} style={{ flex:1 }}/>
+          <span style={{ fontSize:13, color:C.blue, fontWeight:700, minWidth:64, textAlign:"right" }}>{cfg.waterGoal||2000}cc</span>
+        </div>
+      </div>
+
+      <Header>目標上床時間</Header>
+      <div className="pix" style={{ background:C.panel, padding:14 }}>
+        <div style={{ fontSize:11, color:C.dim, marginBottom:10 }}>在這個時間前上床算達標</div>
+        <div style={{ display:"flex", flexWrap:"wrap", gap:6 }}>
+          {[["22:00","10點"],["22:30","10點半"],["23:00","11點"],["23:30","11點半"],["00:00","12點"]].map(([v,l])=>(
+            <button key={v} className="btn" onClick={()=>saveCfg({...cfg,bedGoal:v})} style={{ flex:"1 0 18%", padding:10, border:`2px solid ${(cfg.bedGoal||"00:00")===v?C.gold:C.line}`, background:(cfg.bedGoal||"00:00")===v?C.panelAlt:C.bg, color:C.ink, cursor:"pointer", fontFamily:F, fontSize:12, fontWeight:700 }}>{l}</button>
+          ))}
+        </div>
+      </div>
+
       {editing && <EditModal editing={editing} cfg={cfg} saveCfg={saveCfg} close={()=>setEditing(null)} />}
     </div>
   );
@@ -1595,16 +1695,164 @@ function dragonRows32(dtype){
   set(5,2,"O"); set(13,11,"O"); set(20,12,"O"); set(20,22,"O");
   return g.map(a=>a.join(""));
 }
+// ════ 32×32 軍團怪物（7 種基底 + 變體）════
+// fam: swirl(永夜)/blob(腐食)/block(石化)/horn(焦慮)/ghost(疲勞)/flame(發炎)/eye(心魔)
+// variant 0-6 控制細節差異
+function monsterRows32(fam, variant){
+  const N=32;
+  const g=Array.from({length:N},()=>Array(N).fill(" "));
+  const set=(y,x,c)=>{ if(y>=0&&y<N&&x>=0&&x<N) g[y][x]=c; };
+  const rect=(y0,y1,x0,x1,c)=>{ for(let y=y0;y<=y1;y++)for(let x=x0;x<=x1;x++)set(y,x,c); };
+  const sym=(y,x,c)=>{ set(y,x,c); set(y,31-x,c); };
+  const symRect=(y0,y1,x0,x1,c)=>{ for(let y=y0;y<=y1;y++)for(let x=x0;x<=x1;x++)sym(y,x,c); };
+  const v=variant%7;
+
+  if(fam==="swirl"){ // 永夜：幽靈/烏鴉風，飄浮體 + 大眼
+    symRect(8,20,9,15,"C"); rect(8,22,9,22,"C");
+    symRect(9,13,10,13,"H");           // 上半亮
+    symRect(15,20,9,14,"S");           // 下半暗
+    // 飄浮尾擺
+    sym(21,10,"C"); sym(22,11,"S"); sym(23,12,"C"); sym(21,14,"S");
+    rect(20,23,14,17,"C"); set(23,15,"S"); set(23,16,"S");
+    // 頭頂尖（耳/羽）
+    sym(6,11,"O"); sym(5,12,"C"); sym(7,10,"H");
+    // 大眼
+    rect(12,15,11,13,"W"); rect(12,15,18,20,"W");
+    set(13,12,"E"); set(13,19,"E");
+    if(v>=2){ sym(10,8,"S"); sym(11,8,"C"); } // 翼/披風
+    if(v>=4){ rect(17,18,13,18,"W"); set(17,14,"E"); set(17,17,"E"); } // 利齒
+    if(v>=5){ sym(4,13,"G"); } // 頂飾
+    return g.map(a=>a.join(""));
+  }
+  if(fam==="blob"){ // 腐食：黏稠史萊姆/獸，圓胖
+    symRect(12,22,8,15,"C");
+    rect(12,22,8,23,"C");
+    symRect(13,16,9,12,"H");           // 高光
+    symRect(19,22,9,14,"S");           // 底陰影
+    // 頂部滴流
+    sym(10,11,"C"); sym(9,12,"H"); sym(11,14,"C");
+    // 眼
+    rect(15,18,11,13,"W"); rect(15,18,18,20,"W");
+    set(16,12,"E"); set(16,19,"E");
+    // 嘴/牙
+    rect(20,21,13,18,"W"); set(20,14,"O"); set(20,17,"O");
+    if(v>=1){ sym(23,10,"S"); sym(24,11,"C"); } // 流淌
+    if(v>=3){ sym(11,9,"R"); sym(11,22,"R"); } // 王冠/角(紅)
+    if(v>=5){ rect(13,14,14,17,"G"); } // 皇冠
+    return g.map(a=>a.join(""));
+  }
+  if(fam==="block"){ // 石化：方正岩石獸
+    symRect(10,22,8,15,"C");
+    rect(10,22,8,23,"C");
+    // 岩石塊面
+    symRect(11,14,9,12,"H"); symRect(18,21,9,14,"S");
+    sym(13,10,"S"); sym(16,11,"H"); sym(19,10,"D");
+    // 方頭
+    rect(7,10,12,19,"C"); rect(7,8,12,19,"H");
+    // 眼（發光裂縫）
+    set(13,11,"G"); set(13,12,"G"); set(13,19,"G"); set(13,20,"G");
+    // 腿（粗短）
+    rect(22,24,10,13,"S"); rect(22,24,18,21,"S");
+    if(v>=2){ sym(8,9,"D"); sym(7,10,"O"); } // 肩石/角
+    if(v>=4){ symRect(15,17,8,8,"D"); } // 側突岩
+    if(v>=5){ sym(6,13,"H"); sym(5,14,"H"); } // 結晶
+    return g.map(a=>a.join(""));
+  }
+  if(fam==="horn"){ // 焦慮：尖角魔，多刺
+    symRect(11,21,9,15,"C");
+    rect(11,21,9,22,"C");
+    symRect(12,15,10,12,"H"); symRect(18,21,10,14,"S");
+    // 大尖角（往上外）
+    sym(4,9,"D"); sym(5,10,"O"); sym(6,11,"C"); sym(3,8,"H");
+    rect(8,11,11,20,"C"); rect(8,9,11,20,"H"); // 頭
+    // 怒眼
+    set(13,11,"R"); set(13,12,"E"); set(13,19,"R"); set(13,20,"E");
+    // 獠牙
+    rect(16,17,13,18,"W"); set(16,14,"O"); set(16,17,"O");
+    // 多刺背
+    sym(10,16,"D"); sym(11,18,"D"); sym(12,20,"D");
+    if(v>=2){ sym(22,11,"C"); sym(23,12,"S"); } // 爪
+    if(v>=4){ sym(7,7,"D"); sym(6,8,"O"); } // 第二對角
+    if(v>=5){ rect(14,15,14,17,"R"); } // 胸口火
+    return g.map(a=>a.join(""));
+  }
+  if(fam==="ghost"){ // 疲勞：枯萎獸，半透明垂墜
+    symRect(9,19,9,15,"C");
+    rect(9,21,9,22,"C");
+    symRect(10,13,10,13,"H"); symRect(16,19,9,14,"S");
+    // 垂墜下襬
+    sym(20,10,"C"); sym(21,11,"S"); sym(22,10,"C"); sym(20,14,"S"); sym(21,13,"C");
+    // 耳/角
+    sym(7,10,"C"); sym(6,11,"H"); sym(8,9,"S");
+    // 疲憊半閉眼
+    rect(13,14,11,13,"S"); rect(13,14,18,20,"S");
+    set(13,12,"E"); set(13,19,"E");
+    // 嘆氣嘴
+    rect(16,16,14,17,"S");
+    if(v>=2){ sym(11,8,"S"); } // 垂耳
+    if(v>=3){ sym(9,16,"D"); sym(10,18,"D"); } // 枯刺
+    if(v>=5){ sym(5,12,"G"); } // 殘光
+    return g.map(a=>a.join(""));
+  }
+  if(fam==="flame"){ // 發炎：火焰獸
+    symRect(11,21,9,15,"C");
+    rect(11,21,9,22,"C");
+    symRect(12,15,10,13,"H"); symRect(18,21,10,14,"S");
+    // 火焰頭冠
+    sym(5,11,"R"); sym(4,12,"G"); sym(6,10,"R"); sym(3,13,"g");
+    rect(7,10,11,20,"C"); rect(7,8,11,20,"H");
+    // 烈眼
+    set(13,11,"G"); set(13,12,"R"); set(13,19,"G"); set(13,20,"R");
+    // 火口
+    rect(16,18,13,18,"R"); set(17,15,"G"); set(17,16,"G");
+    // 身上火紋
+    sym(14,10,"R"); sym(16,11,"G"); sym(19,11,"R");
+    if(v>=2){ sym(9,8,"R"); sym(8,9,"G"); } // 肩火
+    if(v>=4){ sym(22,11,"R"); sym(23,12,"G"); } // 火爪
+    if(v>=5){ sym(2,14,"g"); } // 高焰
+    return g.map(a=>a.join(""));
+  }
+  if(fam==="eye"){ // 心魔：獨眼/暗影
+    symRect(10,21,8,15,"C");
+    rect(10,22,8,23,"C");
+    symRect(11,14,9,12,"H"); symRect(19,22,9,14,"S");
+    // 巨大獨眼
+    rect(12,18,11,20,"W"); rect(13,17,12,19,"z");
+    rect(14,16,13,18,"R"); set(15,15,"E"); set(15,16,"E"); // 瞳
+    // 暗影觸手
+    sym(22,10,"S"); sym(23,11,"C"); sym(24,12,"S");
+    // 頂尖
+    sym(8,11,"O"); sym(7,12,"C");
+    if(v>=2){ sym(11,8,"S"); sym(12,7,"C"); } // 影翼
+    if(v>=3){ set(10,15,"R"); set(10,16,"R"); } // 額紋
+    if(v>=5){ symRect(9,9,12,13,"P"); } // 暗光環
+    return g.map(a=>a.join(""));
+  }
+  // fallback
+  symRect(10,20,9,15,"C"); rect(10,20,9,22,"C");
+  rect(13,15,11,13,"W"); rect(13,15,18,20,"W");
+  set(14,12,"E"); set(14,19,"E");
+  return g.map(a=>a.join(""));
+}
+
+const MONSTER_FAMS = ["swirl","blob","block","horn","ghost","flame","eye"];
 const DRAGON_DTYPE = { dragon:"base", dragon_fire:"fire", dragon_ice:"ice", dragon_venom:"venom", dragon_dark:"dark" };
 
 function BossSprite({ shape, color, mini, silhouette = false, variant = 0 }) {
   const sz = mini ? 24 : 68;
   const hi = lighten(color, 42), sh = darken(color, 40), out = darken(color, 80);
-  const P = { O: out, C: color, H: hi, S: sh, W: "#ffffff", E: "#1a1320", G: "#f4d24a", g: "#fff2c0", D: "#cfc6b0", e: "#1a1320", R: "#d1413a", K: "#f0b88a", b: "#aedbf0", m: lighten(color,55), n: darken(color,20) };
+  const P = { O: out, C: color, H: hi, S: sh, W: "#ffffff", E: "#1a1320", G: "#f4d24a", g: "#fff2c0", D: "#cfc6b0", e: "#1a1320", R: "#d1413a", K: "#f0b88a", b: "#aedbf0", m: lighten(color,55), n: darken(color,20), z:"#b8bcc8", P:"#9560c4" };
 
   // ── 龍：用 32×32 精細繪製 ──
   if(DRAGON_DTYPE[shape] && shape!=="dead"){
     const rows = dragonRows32(DRAGON_DTYPE[shape]);
+    const silPal = new Proxy({}, { get: () => "#2a2535" });
+    const els = pixGrid(rows, silhouette ? silPal : P, sz, 32, 32);
+    return <svg viewBox={`0 0 ${sz} ${sz}`} width={sz} height={sz} shapeRendering="crispEdges" style={{ overflow:"visible" }}>{els}</svg>;
+  }
+  // ── 軍團怪物：用 32×32 繪製（變體區分）──
+  if(MONSTER_FAMS.includes(shape) && shape!=="dead"){
+    const rows = monsterRows32(shape, variant);
     const silPal = new Proxy({}, { get: () => "#2a2535" });
     const els = pixGrid(rows, silhouette ? silPal : P, sz, 32, 32);
     return <svg viewBox={`0 0 ${sz} ${sz}`} width={sz} height={sz} shapeRendering="crispEdges" style={{ overflow:"visible" }}>{els}</svg>;
