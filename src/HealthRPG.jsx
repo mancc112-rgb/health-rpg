@@ -1426,6 +1426,14 @@ function darken(hex, amt) { return lighten(hex, -amt); }
 
 // ════ 半身大頭照（左上角頭像，依等級不同越來越帥）════
 function HeroPortrait({ stage, color, armor, size = 60 }) {
+  // 用精緻圖檔（顯示上半身：放大並對齊頂部）
+  if(typeof stage==="number" && stage>=0 && stage<12){
+    return (
+      <div style={{ width:size, height:size, overflow:"hidden", display:"flex", alignItems:"flex-start", justifyContent:"center" }}>
+        <img src={`heroes/hero${stage+1}.png`} alt="" style={{ width:size*1.5, height:size*1.5, imageRendering:"pixelated", objectFit:"contain", marginTop:size*0.05 }} />
+      </div>
+    );
+  }
   const skin = "#f2c79a", skinSh = "#d49b6a", skinHi = "#ffe0bc";
   const hair = stage >= 7 ? "#e8c84a" : stage >= 4 ? "#a06838" : "#6a4428";
   const hairHi = lighten(hair, 45), hairSh = darken(hair, 30);
@@ -1473,6 +1481,13 @@ function HeroPortrait({ stage, color, armor, size = 60 }) {
 function body0(armor){ return armor?.body || null; }
 function Hero({ stage, color, weapon, armor, big, small, frame = 0, facing = 1, silhouette = false }) {
   const sz = small ? 38 : (big ? 112 : 58);
+  // ── 優先使用精緻圖檔素材（hero1~12.png）──
+  if(!silhouette && typeof stage==="number" && stage>=0 && stage<12){
+    return (
+      <img src={`heroes/hero${stage+1}.png`} width={sz} height={sz} alt=""
+           style={{ imageRendering:"pixelated", objectFit:"contain", transform: facing<0?"scaleX(-1)":"none", display:"block" }} />
+    );
+  }
   const s = stage;
   const N = 32;
 
@@ -1521,123 +1536,130 @@ function Hero({ stage, color, weapon, armor, big, small, frame = 0, facing = 1, 
 
   // ── 披風（先畫，在身體後方）──
   if(hasCape){
-    symRect(11,25,7,9,"d");
-    symRect(11,24,9,11,"C");
-    for(let y=12;y<=23;y+=2) sym(y,10,"c");
-    // 披風下襬鋸齒
-    sym(26,8,"d"); sym(25,10,"C"); sym(27,9,"d");
+    symRect(13,25,8,10,"d");
+    symRect(13,24,10,12,"C");
+    for(let y=14;y<=23;y+=2) sym(y,11,"c");
+    sym(26,9,"d"); sym(25,11,"C"); sym(27,10,"d");
   }
 
   // ── 羽翼（11、12 階，在最後方）──
   if(hasWings){
-    // 左右大羽翼
-    const wing=[[9,6],[10,4],[10,5],[10,6],[11,3],[11,4],[11,5],[11,6],[12,2],[12,3],[12,4],[12,5],[13,3],[13,4],[13,5],[14,4],[14,5],[15,5]];
+    const wing=[[10,7],[11,5],[11,6],[11,7],[12,4],[12,5],[12,6],[12,7],[13,3],[13,4],[13,5],[13,6],[14,4],[14,5],[14,6],[15,5],[15,6],[16,6]];
     wing.forEach(([y,x])=>{ sym(y,x,"Z"); });
-    const wingEdge=[[10,3],[11,2],[12,1],[13,2],[14,3]];
+    const wingEdge=[[11,4],[12,3],[13,2],[14,3],[15,4]];
     wingEdge.forEach(([y,x])=>sym(y,x,"z"));
   }
 
-  // ── 頭部 ──
-  // 臉
-  symRect(5,9,12,15,"K");
-  fillRect(5,9,12,19,"K");
-  set(6,13,"E"); set(6,18,"E"); // 眼
-  set(8,15,"k"); set(8,16,"k"); // 嘴附近
-  fillRect(9,9,13,18,"k");
+  // ════ 薩爾達/DQ 勇者風：端正比例、清秀英挺 ════
+  // 頭身約 1:2.2，頭適中、身體挺拔、腿正常長
+
+  // ── 頭部（適中，y=3~12）──
+  fillRect(5,11,11,20,"K");           // 臉
+  fillRect(5,7,12,19,"j");            // 額頭高光
+  sym(10,11,"k"); sym(11,12,"k");     // 下顎陰影
+  // 眼（清秀，不誇張）
+  set(8,13,"E"); set(9,13,"E"); set(8,18,"E"); set(9,18,"E");
+  set(8,14,"W"); set(8,17,"W");       // 眼神光
+  // 鼻、嘴（小巧）
+  set(10,15,"k"); set(10,16,"k");
+  set(11,15,"k"); set(11,16,"k");
   // 頭髮/頭盔
   if(helmType==="none"){
-    fillRect(3,4,12,19,"H"); fillRect(4,5,11,12,"H"); fillRect(4,5,19,20,"H");
-    for(let x=12;x<=19;x+=2) set(3,x,"h");
+    // 帥氣短髮：有層次的瀏海尖 + 側分 + 鬢角
+    fillRect(2,3,11,20,"H");                       // 頭頂主體
+    fillRect(4,5,10,11,"H"); fillRect(4,6,20,21,"H"); // 兩側下垂
+    // 瀏海尖角（不規則、有型）
+    set(5,12,"H"); set(6,12,"H"); set(5,13,"H");   // 左瀏海
+    set(5,15,"H"); set(5,16,"H");                  // 中分縫隙留白
+    set(5,18,"H"); set(6,19,"H"); set(5,19,"H");   // 右瀏海
+    set(6,14,"K"); set(6,17,"K");                  // 額頭露出(分線)
+    // 高光（頭頂亮澤）
+    set(2,13,"h"); set(2,16,"h"); set(2,19,"h"); set(3,12,"h"); set(3,18,"h");
+    // 翹起的髮尾
+    sym(3,9,"H"); sym(4,9,"q"); sym(6,10,"q");
+    set(2,11,"H"); set(2,20,"H");
   } else if(helmType==="band"){
-    fillRect(3,4,12,19,"H"); fillRect(5,5,11,20,"A"); set(5,11,"a"); set(5,20,"s");
+    // 髮 + 頭巾：露出帥氣瀏海
+    fillRect(2,3,11,20,"H"); set(2,13,"h"); set(2,18,"h");
+    set(5,12,"H"); set(5,13,"H"); set(5,18,"H"); set(5,19,"H"); // 瀏海尖
+    fillRect(4,4,10,21,"A"); set(4,10,"a"); set(4,21,"s"); sym(4,13,"g"); // 頭帶
   } else if(helmType==="full"||helmType==="horn"){
-    fillRect(2,4,11,20,"A"); fillRect(3,3,11,20,"a"); fillRect(5,5,11,20,"A");
-    fillRect(5,8,11,11,"A"); fillRect(5,8,20,20,"A"); // 護頰
-    set(2,11,"s"); set(2,20,"s");
-    if(helmType==="horn"){ // 角
-      sym(1,10,"A"); sym(0,9,"a"); sym(2,11,"A");
-    }
-    // 盔甲羽飾
-    if(s>=7){ sym(1,15,"G"); sym(0,15,"g"); }
-  } else if(helmType==="hood"){ // 法師兜帽
-    fillRect(2,5,10,21,"C"); fillRect(3,4,11,20,"c");
-    fillRect(6,9,10,11,"C"); fillRect(6,9,20,21,"C");
+    fillRect(2,4,10,21,"A"); fillRect(2,2,10,21,"a"); fillRect(5,6,10,21,"A");
+    symRect(5,8,10,10,"A");            // 護頰
+    set(2,10,"s"); set(2,21,"s");
+    if(helmType==="horn"){ sym(1,9,"a"); sym(0,8,"a"); set(0,9,"a"); set(0,22,"a"); }
+    if(s>=7){ sym(0,15,"G"); set(0,15,"g"); set(0,16,"g"); }  // 盔頂羽飾
+  } else if(helmType==="hood"){
+    fillRect(2,5,9,22,"C"); fillRect(3,4,10,21,"c");
+    symRect(6,10,9,10,"C");
     set(2,15,"g"); set(2,16,"g");
   } else if(helmType==="halo"||helmType==="crown"){
-    fillRect(3,4,12,19,"H"); for(let x=12;x<=19;x+=2) set(3,x,"h");
-    if(helmType==="halo"){ // 光環
-      for(let x=11;x<=20;x++){ set(1,x,"G"); } set(1,11,"g"); set(1,20,"g");
-      sym(0,13,"g");
-    } else { // 王冠
-      fillRect(2,3,11,20,"G"); set(1,12,"g"); set(1,15,"g"); set(1,18,"g"); set(1,20,"g");
-      sym(2,13,"Y");
-    }
+    // 帥髮 + 光環/王冠
+    fillRect(2,3,11,20,"H"); set(2,13,"h"); set(2,16,"h"); set(2,19,"h");
+    set(5,12,"H"); set(5,13,"H"); set(5,18,"H"); set(5,19,"H"); // 瀏海尖
+    set(6,14,"K"); set(6,17,"K");
+    if(helmType==="halo"){ for(let x=10;x<=21;x++) set(1,x,"G"); set(1,10,"g"); set(1,21,"g"); }
+    else { fillRect(1,2,10,21,"G"); set(0,12,"g"); set(0,15,"g"); set(0,18,"g"); sym(1,12,"Y"); }
   }
 
-  // ── 身體（盔甲）──
-  // 軀幹
-  symRect(11,19,12,15,"A");
-  fillRect(11,19,12,19,"A");
-  // 胸甲明暗
-  for(let y=12;y<=18;y++){ set(y,12,"a"); set(y,19,"s"); }
-  // 肩甲
-  symRect(10,12,9,11,"A"); sym(10,9,"a"); sym(12,9,"s");
-  // 胸口裝飾（高階金）
-  if(s>=7){ symRect(13,15,14,15,"G"); set(13,15,"g"); set(13,16,"g"); }
-  else if(s>=3){ sym(13,14,"a"); }
+  // ── 脖子 ──
+  fillRect(12,12,14,17,"k");
+
+  // ── 身體（挺拔軀幹 y=13~20）──
+  fillRect(13,20,12,19,"A");
+  fillRect(13,20,12,13,"a");          // 左高光
+  fillRect(13,20,18,19,"s");          // 右陰影
+  // 胸甲分界
+  sym(14,14,"a"); sym(16,14,"a");
+  // 胸口裝飾
+  if(s>=7){ fillRect(14,16,15,16,"G"); set(14,15,"g"); }
+  else if(s>=3){ sym(15,14,"a"); }
+  // 肩
+  symRect(12,14,10,11,"A"); sym(12,10,"a"); sym(14,10,"s");
   // 腰帶
-  fillRect(19,19,12,19,"B"); set(19,15,"G"); set(19,16,"G");
+  fillRect(20,20,12,19,"B"); set(20,15,"G"); set(20,16,"G");
 
-  // ── 手臂 ──
-  symRect(12,18,9,10,"A"); // 上臂(盔甲)
-  symRect(18,21,9,10,"K"); // 前臂(膚色)露出
-  if(s>=4){ symRect(18,21,9,10,"A"); } // 高階全甲手
+  // ── 手臂（修長，垂於兩側）──
+  symRect(13,18,10,11,"A");           // 上臂
+  symRect(18,20,10,11,"K");           // 前臂(膚色)
+  if(s>=4){ symRect(18,20,10,11,"A"); } // 高階手套
 
-  // ── 腿 ──
-  const legSwap = frame===1?1:frame===2?-1:0;
-  // 左腿
-  fillRect(20,27,13,14,"B"); fillRect(20,27,17,18,"B");
-  for(let y=20;y<=26;y++){ set(y,13,"b"); set(y,17,"b"); }
+  // ── 腿（正常長度 y=21~28）──
+  fillRect(21,26,13,14,"A"); fillRect(21,26,17,18,"A");  // 大腿(同盔甲色或褲)
+  fillRect(21,26,13,13,"a"); fillRect(21,26,18,18,"s");
+  // 護脛/褲
+  fillRect(24,26,13,14,"B"); fillRect(24,26,17,18,"B");
   // 靴
   fillRect(27,29,12,15,"O"); fillRect(27,29,16,19,"O");
-  set(28,12,"b"); set(28,19,"b");
-  if(frame===1){ /* 行走微調 */ fillRect(20,27,18,19,"B"); }
-  if(frame===2){ fillRect(20,27,12,13,"B"); }
+  set(28,13,"b"); set(28,18,"b");
+  if(frame===1){ fillRect(21,26,17,18,"b"); set(27,17,"b"); }
+  if(frame===2){ fillRect(21,26,13,14,"b"); set(27,14,"b"); }
 
   // ── 盾牌（左手，玩家視角右側因鏡像）──
   if(hasShield){
     const shBase = s>=9?"P":s>=6?"R":s>=4?"L":"Q";
-    const shHi = s>=9?"p":s>=6?"r":"m";
-    fillRect(14,23,20,24,shBase);
-    fillRect(14,22,21,23,shBase);
-    set(14,21,"m"); set(15,21,"m"); // 高光邊
-    fillRect(13,23,20,20,"M"); fillRect(13,23,24,24,"n"); // 金屬邊框
-    // 盾徽十字
-    set(17,22,"W"); set(18,22,"W"); set(19,22,"W"); set(18,21,"W"); set(18,23,"W");
-    if(s>=6){ set(17,22,"G"); set(18,22,"G"); set(19,22,"G"); set(18,21,"G"); set(18,23,"G"); }
+    fillRect(14,21,21,24,shBase);
+    set(14,21,"m"); set(15,21,"m");
+    fillRect(13,21,21,21,"M"); fillRect(13,21,24,24,"n");  // 金屬邊框
+    set(16,22,"W"); set(17,22,"W"); set(18,22,"W"); set(17,21,"W"); set(17,23,"W");  // 十字徽
+    if(s>=6){ set(16,22,"G"); set(17,22,"G"); set(18,22,"G"); set(17,21,"G"); set(17,23,"G"); }
   }
 
   // ── 武器（右手，鏡像後在左）──
   {
-    const col=8;
+    const col=7;
     if(wpnKind==="staff"){
-      // 法杖：杖身 + 頂端寶珠
-      for(let y=9;y<=23;y++){ set(y,col,"v"); set(y,col-1,"u"); }
-      // 寶珠
-      fillRect(5,8,col-2,col+1,"P"); set(5,col-1,"p"); set(6,col,"g");
-      fillRect(4,4,col-1,col,"g");
+      for(let y=10;y<=22;y++){ set(y,col,"v"); set(y,col-1,"u"); }
+      fillRect(6,9,col-2,col+1,"P"); set(6,col-1,"p"); set(7,col,"g");
+      fillRect(5,5,col-1,col,"g");
     } else {
-      // 劍：刀刃 + 護手 + 握把（長度依 tier）
-      const top = wTier>=5?6: wTier>=3?8:10;
-      for(let y=top;y<=18;y++){ set(y,col,"w"); set(y,col-1,"v"); set(y,col+1,"m"); }
+      const top = wTier>=5?7: wTier>=3?9:11;
+      for(let y=top;y<=17;y++){ set(y,col,"w"); set(y,col-1,"v"); set(y,col+1,"m"); }
       set(top,col,"W"); set(top-1,col,"m");
       if(wTier>=5){ set(top,col-1,"G"); set(top+1,col-1,"G"); }
-      // 護手
-      fillRect(19,19,col-2,col+2,wTier>=4?"G":"v");
-      if(wTier>=4){ set(19,col-3,"g"); set(19,col+3,"g"); }
-      // 握把
-      fillRect(20,23,col,col,"B");
-      set(23,col,wTier>=4?"G":"Y");
+      fillRect(18,18,col-2,col+2,wTier>=4?"G":"v");  // 護手
+      if(wTier>=4){ set(18,col-3,"g"); set(18,col+3,"g"); }
+      fillRect(19,21,col,col,"B");                     // 握把
     }
   }
 
